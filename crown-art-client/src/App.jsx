@@ -1,7 +1,9 @@
+import Navbar from "./Pages/Shared/Navbar/Navbar";
+
 const App = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline text-cyan-300 bg-secondary">Hello Crown Art!</h1>
+      <Navbar />
     </div>
   );
 };
