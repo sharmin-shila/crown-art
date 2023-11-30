@@ -1,13 +1,38 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import signUpImg from "../../assets/signup/signup.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const SignUp = () => {
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const handleSignUp = (data) => {
+    const { name, email, password } = data || {};
+
+    createUser(email, password)
+      .then(() => {
+        updateUserProfile(name)
+          .then(() => {
+            const saveUser = { name, email };
+            console.log(saveUser);
+            toast.success("Your Sign up is Successful");
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   return (
     <>
@@ -21,7 +46,7 @@ const SignUp = () => {
               <h1 className="text-3xl font-bold text-center text-[#90c641e6]">
                 Sign Up now!
               </h1>
-              <form onSubmit={handleSubmit()}>
+              <form onSubmit={handleSubmit(handleSignUp)}>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">Name</span>
@@ -85,7 +110,7 @@ const SignUp = () => {
                   )}
                 </div>
 
-                <div className="form-control">
+                {/* <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">Upload Photo</span>
                   </label>
@@ -98,7 +123,7 @@ const SignUp = () => {
                   {errors.photo && (
                     <span className="text-red-600 py-2">Photo is required</span>
                   )}
-                </div>
+                </div> */}
 
                 <div className="form-control mt-6">
                   <input
