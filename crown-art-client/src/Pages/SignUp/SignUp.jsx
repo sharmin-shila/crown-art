@@ -1,6 +1,6 @@
-import useAuth from "../../Hooks/useAuth/useAuth";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth/useAuth";
 import { toast } from "react-hot-toast";
 import signUpImg from "../../assets/signup/signup.png";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
@@ -8,29 +8,46 @@ import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 const SignUp = () => {
   const { createUser, updateUserProfile } = useAuth();
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleSignUp = (data) => {
-    const { name, email, password } = data || {};
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${
+    import.meta.env.VITE_IMGBB_KEY
+  }`;
 
-    createUser(email, password)
-      .then(() => {
-        updateUserProfile(name)
+  const handleSignUp = (data) => {
+    const { name, email, password, photo } = data || {};
+
+    const formData = new FormData();
+    formData.append("image", photo[0]);
+
+    fetch(img_hosting_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageResponse) => {
+        const photoUrl = imageResponse.data.display_url;
+
+        createUser(email, password)
           .then(() => {
-            const saveUser = { name, email };
-            console.log(saveUser);
-            toast.success("Your Sign up is Successful");
+            updateUserProfile(name, photoUrl)
+              .then(() => {
+                toast.success("Your Sign up is Successful");
+                navigate("/");
+              })
+              .catch((error) => {
+                toast.error(error.message);
+              });
           })
           .catch((error) => {
             toast.error(error.message);
           });
-      })
-      .catch((error) => {
-        toast.error(error.message);
       });
   };
 
@@ -110,7 +127,7 @@ const SignUp = () => {
                   )}
                 </div>
 
-                {/* <div className="form-control">
+                <div className="form-control">
                   <label className="label">
                     <span className="label-text font-medium">Upload Photo</span>
                   </label>
@@ -123,7 +140,7 @@ const SignUp = () => {
                   {errors.photo && (
                     <span className="text-red-600 py-2">Photo is required</span>
                   )}
-                </div> */}
+                </div>
 
                 <div className="form-control mt-6">
                   <input
