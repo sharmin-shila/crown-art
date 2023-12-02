@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import loginImg from "../../assets/login/login.png";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
   const { signIn } = useAuth();
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -19,6 +21,7 @@ const Login = () => {
     signIn(email, password)
       .then(() => {
         toast.success("Successfully Login");
+        navigate("/");
       })
       .catch((error) => {
         toast.error(error.message);

@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth/useAuth";
+import toast from "react-hot-toast";
+import Avatar from "./Avatar";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logout Successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   const navOptions = (
     <>
       <li className="font-semibold">
@@ -51,7 +66,31 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <Link to="/login" className="btn btn-outline border-[#90c641e6] hover:btn-info text-[#90c641e6]">Login</Link>
+          {user?.email ? (
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <Avatar></Avatar>
+              </label>
+              <ul
+                tabIndex={0}
+                className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              >
+                <button
+                  onClick={handleLogOut}
+                  className="btn btn-outline bg-[#90c641e6] border-0 text-white hover:btn-warning"
+                >
+                  Logout
+                </button>
+              </ul>
+            </div>
+          ) : (
+            <Link
+              className="btn btn-outline border-[#90c641e6] hover:btn-info text-[#90c641e6]"
+              to="/login"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </>
