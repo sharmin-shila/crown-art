@@ -1,12 +1,11 @@
+import useAuth from "../../Hooks/useAuth/useAuth";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import signUpImg from "../../assets/signup/signup.png";
-import { useContext } from "react";
-import { AuthContext } from "../../Context/AuthProvider";
 import { toast } from "react-hot-toast";
+import signUpImg from "../../assets/signup/signup.png";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useAuth();
 
   const {
     register,
