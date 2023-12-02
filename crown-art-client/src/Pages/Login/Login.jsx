@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import loginImg from "../../assets/login/login.png";
 import { toast } from "react-hot-toast";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const { signIn } = useAuth();
@@ -106,6 +107,8 @@ const Login = () => {
                   </Link>
                 </small>
               </p>
+
+              <SocialLogin />
             </div>
           </div>
         </div>

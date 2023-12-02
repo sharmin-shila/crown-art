@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import signUpImg from "../../assets/signup/signup.png";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser, updateUserProfile } = useAuth();
@@ -143,6 +144,8 @@ const SignUp = () => {
                   </Link>
                 </small>
               </p>
+
+              <SocialLogin />
             </div>
           </div>
         </div>
