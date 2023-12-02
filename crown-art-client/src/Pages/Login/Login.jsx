@@ -1,13 +1,31 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth/useAuth";
 import loginImg from "../../assets/login/login.png";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
+  const { signIn } = useAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const handleLogin = (data) => {
+    const { email, password } = data || {};
+
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("Successfully Login");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   return (
     <>
@@ -21,7 +39,7 @@ const Login = () => {
               <h1 className="text-3xl font-bold text-center text-[#90c641e6]">
                 Login now!
               </h1>
-              <form onSubmit={handleSubmit()}>
+              <form onSubmit={handleSubmit(handleLogin)}>
                 <div className="form-control w-full">
                   <label className="label">
                     <span className="label-text font-semibold">Email</span>
