@@ -17,9 +17,7 @@ const Login = () => {
     const { email, password } = data || {};
 
     signIn(email, password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
+      .then(() => {
         toast.success("Successfully Login");
       })
       .catch((error) => {
