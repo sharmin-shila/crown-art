@@ -10,9 +10,30 @@ const SocialLogin = () => {
 
   const handleGoogleSignIn = () => {
     googleSignIn()
-      .then(() => {
-        toast.success("Profile created successfully");
-        navigate("/");
+      .then((result) => {
+        const loggedUser = result.user;
+
+        const saveUser = {
+          name: loggedUser?.displayName,
+          email: loggedUser?.email,
+          image: loggedUser?.photoURL,
+          role: "student",
+        };
+
+        fetch(`${import.meta.env.VITE_API_URL}/users`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              toast.success("Profile created successfully");
+              navigate("/");
+            }
+          });
       })
       .catch((error) => {
         toast.error(error.message);
