@@ -21,7 +21,7 @@ const SignUp = () => {
   }`;
 
   const handleSignUp = (data) => {
-    const { name, email, password, photo } = data || {};
+    const { name, email, password, photo, role } = data || {};
 
     const formData = new FormData();
     formData.append("image", photo[0]);
@@ -38,8 +38,22 @@ const SignUp = () => {
           .then(() => {
             updateUserProfile(name, photoUrl)
               .then(() => {
-                toast.success("Your Sign up is Successful");
-                navigate("/");
+                const saveUser = { name, email, image: photoUrl, role };
+
+                fetch(`${import.meta.env.VITE_API_URL}/users`, {
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                  body: JSON.stringify(saveUser),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    if (data.insertedId) {
+                      toast.success("Your Sign up is Successful");
+                      navigate("/");
+                    }
+                  });
               })
               .catch((error) => {
                 toast.error(error.message);
@@ -140,6 +154,14 @@ const SignUp = () => {
                   {errors.photo && (
                     <span className="text-red-600 py-2">Photo is required</span>
                   )}
+                </div>
+
+                <div className="form-control hidden">
+                  <input
+                    type="text"
+                    {...register("role")}
+                    defaultValue="student"
+                  />
                 </div>
 
                 <div className="form-control mt-6">
