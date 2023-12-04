@@ -38,6 +38,27 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
+
+    // <--- crownArtDB collections --->
+
+    const usersCollections = client.db("crownArtDB").collection("users");
+
+    // <--- user Apis --->
+
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+
+      const query = { email: user?.email };
+
+      const existingUser = await usersCollections.findOne(query);
+
+      if (existingUser) {
+        res.send({ message: "user already exists!!!" });
+      } else {
+        const result = await usersCollections.insertOne(user);
+        res.send(result);
+      }
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
