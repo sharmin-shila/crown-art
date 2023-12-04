@@ -73,14 +73,14 @@ const Navbar = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+                className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-[#283333cc] rounded-box w-52"
               >
-                <button
-                  onClick={handleLogOut}
-                  className="btn btn-outline bg-[#90c641e6] border-0 text-white hover:btn-warning"
-                >
-                  Logout
-                </button>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <Link onClick={handleLogOut}>Logout</Link>
+                </li>
               </ul>
             </div>
           ) : (
