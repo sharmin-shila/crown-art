@@ -104,6 +104,19 @@ async function run() {
         res.send(result);
       }
     });
+
+    app.patch("/users/student/:id", verifyJWT, async (req, res) => {
+      const query = { _id: new ObjectId(req.params.id) };
+
+      const updateDoc = {
+        $set: {
+          role: "student",
+        },
+      };
+
+      const result = await usersCollection.updateOne(query, updateDoc);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
