@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Container from "../Pages/Shared/Container/Container";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
@@ -27,10 +27,7 @@ const Dashboard = () => {
             ></label>
             <ul className="menu p-4 w-60 min-h-full bg-[#90c641e6] text-base-content">
               <li>
-                <a>Sidebar Item 1</a>
-              </li>
-              <li>
-                <a>Sidebar Item 2</a>
+                <Link to="/dashboard/manage-users">All Users</Link>
               </li>
             </ul>
           </div>

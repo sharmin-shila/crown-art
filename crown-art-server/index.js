@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 
 // middleware
 app.use(cors());
-app.use(express());
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Crown Art is running");
@@ -34,28 +34,36 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    client.db("admin").command({ ping: 1 });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
 
     // <--- crownArtDB collections --->
 
-    const usersCollections = client.db("crownArtDB").collection("users");
+    const usersCollection = client.db("crownArtDB").collection("users");
 
     // <--- user Apis --->
+
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
 
     app.post("/users", async (req, res) => {
       const user = req.body;
 
+      const updatedUser = { ...user, role: "student" };
+
       const query = { email: user?.email };
 
-      const existingUser = await usersCollections.findOne(query);
+      const existingUser = await usersCollection.findOne(query);
 
       if (existingUser) {
         res.send({ message: "user already exists!!!" });
       } else {
-        const result = await usersCollections.insertOne(user);
+        const result = await usersCollection.insertOne(updatedUser);
         res.send(result);
       }
     });
