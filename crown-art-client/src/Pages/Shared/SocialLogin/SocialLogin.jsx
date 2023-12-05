@@ -17,7 +17,6 @@ const SocialLogin = () => {
           name: loggedUser?.displayName,
           email: loggedUser?.email,
           image: loggedUser?.photoURL,
-          role: "student",
         };
 
         fetch(`${import.meta.env.VITE_API_URL}/users`, {

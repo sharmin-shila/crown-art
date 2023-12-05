@@ -21,7 +21,7 @@ const SignUp = () => {
   }`;
 
   const handleSignUp = (data) => {
-    const { name, email, password, photo, role } = data || {};
+    const { name, email, password, photo } = data || {};
 
     const formData = new FormData();
     formData.append("image", photo[0]);
@@ -38,7 +38,7 @@ const SignUp = () => {
           .then(() => {
             updateUserProfile(name, photoUrl)
               .then(() => {
-                const saveUser = { name, email, image: photoUrl, role };
+                const saveUser = { name, email, image: photoUrl };
 
                 fetch(`${import.meta.env.VITE_API_URL}/users`, {
                   method: "POST",
@@ -154,14 +154,6 @@ const SignUp = () => {
                   {errors.photo && (
                     <span className="text-red-600 py-2">Photo is required</span>
                   )}
-                </div>
-
-                <div className="form-control hidden">
-                  <input
-                    type="text"
-                    {...register("role")}
-                    defaultValue="student"
-                  />
                 </div>
 
                 <div className="form-control mt-6">
