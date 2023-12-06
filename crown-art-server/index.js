@@ -68,6 +68,7 @@ async function run() {
     // <--- crownArtDB collections --->
 
     const usersCollection = client.db("crownArtDB").collection("users");
+    const coursesCollection = client.db("crownArtDB").collection("courses");
 
     // <--- json web token apis --->
 
@@ -197,6 +198,13 @@ async function run() {
       };
 
       const result = await usersCollection.updateOne(query, updateDoc);
+      res.send(result);
+    });
+
+    // <--- courses collections apis --->
+
+    app.post("/courses", verifyJWT, async (req, res) => {
+      const result = await coursesCollection.insertOne(req.body);
       res.send(result);
     });
   } finally {
