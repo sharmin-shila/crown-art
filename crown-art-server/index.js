@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -81,9 +81,25 @@ async function run() {
       res.send({ token });
     });
 
+    const verifyAdmin = async (req, res, next) => {
+      const email = req.decoded.email;
+
+      const query = { email: email };
+
+      const user = await usersCollection.findOne(query);
+
+      if (user?.role !== "admin") {
+        return res
+          .status(403)
+          .send({ error: true, message: "forbidden access" });
+      }
+
+      next();
+    };
+
     // <--- user Apis --->
 
-    app.get("/users", verifyJWT, async (req, res) => {
+    app.get("/users", verifyJWT, verifyAdmin, async (req, res) => {
       const result = await usersCollection.find().toArray();
       res.send(result);
     });
@@ -105,33 +121,43 @@ async function run() {
       }
     });
 
-    app.patch("/users/student/:id", verifyJWT, async (req, res) => {
-      const query = { _id: new ObjectId(req.params.id) };
+    app.patch(
+      "/users/student/:id",
+      verifyJWT,
+      verifyAdmin,
+      async (req, res) => {
+        const query = { _id: new ObjectId(req.params.id) };
 
-      const updateDoc = {
-        $set: {
-          role: "student",
-        },
-      };
+        const updateDoc = {
+          $set: {
+            role: "student",
+          },
+        };
 
-      const result = await usersCollection.updateOne(query, updateDoc);
-      res.send(result);
-    });
+        const result = await usersCollection.updateOne(query, updateDoc);
+        res.send(result);
+      }
+    );
 
-    app.patch("/users/instructor/:id", verifyJWT, async (req, res) => {
-      const query = { _id: new ObjectId(req.params.id) };
+    app.patch(
+      "/users/instructor/:id",
+      verifyJWT,
+      verifyAdmin,
+      async (req, res) => {
+        const query = { _id: new ObjectId(req.params.id) };
 
-      const updateDoc = {
-        $set: {
-          role: "instructor",
-        },
-      };
+        const updateDoc = {
+          $set: {
+            role: "instructor",
+          },
+        };
 
-      const result = await usersCollection.updateOne(query, updateDoc);
-      res.send(result);
-    });
+        const result = await usersCollection.updateOne(query, updateDoc);
+        res.send(result);
+      }
+    );
 
-    app.patch("/users/admin/:id", verifyJWT, async (req, res) => {
+    app.patch("/users/admin/:id", verifyJWT, verifyAdmin, async (req, res) => {
       const query = { _id: new ObjectId(req.params.id) };
 
       const updateDoc = {
