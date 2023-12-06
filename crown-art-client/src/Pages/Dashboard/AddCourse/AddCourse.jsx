@@ -50,7 +50,7 @@ const AddCourse = () => {
             if (res.data.insertedId) {
               reset();
               toast.success("Course added successfully");
-              // navigate("/dashboard/my-classes");
+              navigate("/dashboard/course-list");
             }
           });
       });
