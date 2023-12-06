@@ -3,9 +3,11 @@ import Container from "../Pages/Shared/Container/Container";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 import useAdmin from "../Hooks/useAdmin/useAdmin";
+import useInstructor from "../Hooks/useInstructor/useInstructor";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
+  const { isInstructor } = useInstructor();
 
   return (
     <>
@@ -33,6 +35,14 @@ const Dashboard = () => {
                 <>
                   <li>
                     <Link to="/dashboard/manage-users">All Users</Link>
+                  </li>
+                </>
+              )}
+
+              {isInstructor && (
+                <>
+                  <li>
+                    <Link to="/dashboard/add-course">Add Course</Link>
                   </li>
                 </>
               )}

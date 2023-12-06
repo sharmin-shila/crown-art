@@ -45,12 +45,12 @@ const AddCourse = () => {
         data.enrolled = parseInt(0);
 
         axiosSecure
-          .post(`${import.meta.env.VITE_API_URL}/classes`, data)
+          .post(`${import.meta.env.VITE_API_URL}/courses`, data)
           .then((res) => {
             if (res.data.insertedId) {
               reset();
-              toast.success("Class added successfully");
-              navigate("/dashboard/my-classes");
+              toast.success("Course added successfully");
+              // navigate("/dashboard/my-classes");
             }
           });
       });

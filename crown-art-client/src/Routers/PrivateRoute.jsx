@@ -1,5 +1,6 @@
 import useAuth from "../Hooks/useAuth/useAuth";
 import { Navigate, useLocation } from "react-router-dom";
+import Loader from "../Pages/Shared/Loader/Loader";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -7,7 +8,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return <span className="loading loading-dots loading-lg text-error"></span>;
+    return <Loader />;
   }
 
   if (user) {

@@ -1,13 +1,14 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth/useAuth";
 import useInstructor from "../Hooks/useInstructor/useInstructor";
+import Loader from "../Pages/Shared/Loader/Loader";
 
 const InstructorRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const { isInstructor, isInstructorLoading } = useInstructor();
 
   if (loading || isInstructorLoading) {
-    return <span className="loading loading-dots loading-lg text-error"></span>;
+    return <Loader />;
   }
 
   if (user && isInstructor) {
