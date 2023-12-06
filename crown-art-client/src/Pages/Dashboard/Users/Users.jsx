@@ -83,7 +83,7 @@ const Users = () => {
 
                   <td>{user?.email}</td>
 
-                  <td>{user?.role}</td>
+                  <td className="capitalize">{user?.role}</td>
 
                   <th className="flex flex-col gap-2">
                     {user?.role !== "student" && (

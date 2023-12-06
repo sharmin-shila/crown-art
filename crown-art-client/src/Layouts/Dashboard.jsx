@@ -2,8 +2,11 @@ import { Link, Outlet } from "react-router-dom";
 import Container from "../Pages/Shared/Container/Container";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
+import useAdmin from "../Hooks/useAdmin/useAdmin";
 
 const Dashboard = () => {
+  const { isAdmin } = useAdmin();
+
   return (
     <>
       <Navbar />
@@ -26,9 +29,13 @@ const Dashboard = () => {
               className="drawer-overlay"
             ></label>
             <ul className="menu p-4 w-60 min-h-full bg-[#90c641e6] text-base-content">
-              <li>
-                <Link to="/dashboard/manage-users">All Users</Link>
-              </li>
+              {isAdmin && (
+                <>
+                  <li>
+                    <Link to="/dashboard/manage-users">All Users</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
