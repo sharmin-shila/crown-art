@@ -203,6 +203,15 @@ async function run() {
 
     // <--- courses collections apis --->
 
+    app.get("/courses/instructor/:email", verifyJWT, async (req, res) => {
+      const email = req.params.email;
+
+      const query = { email: email };
+
+      const result = await coursesCollection.find(query).toArray();
+      res.send(result);
+    });
+
     app.post("/courses", verifyJWT, async (req, res) => {
       const result = await coursesCollection.insertOne(req.body);
       res.send(result);
