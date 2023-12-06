@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import Users from "../Pages/Dashboard/Users/Users";
 import AdminRoute from "./AdminRoute";
 import AddCourse from "../Pages/Dashboard/AddCourse/AddCourse";
+import InstructorRoute from "./InstructorRoute";
 
 const router = createBrowserRouter([
   {
@@ -44,10 +45,13 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-
       {
         path: "add-class",
-        element: <AddCourse />,
+        element: (
+          <InstructorRoute>
+            <AddCourse />
+          </InstructorRoute>
+        ),
       },
     ],
   },
