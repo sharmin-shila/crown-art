@@ -41,7 +41,16 @@ const CourseList = () => {
                   <tr key={course._id}>
                     <th>{idx + 1}</th>
                     <td>
-                      <div className="font-medium">{course.name}</div>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img src={course?.image} alt="" />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold">{course?.name}</div>
+                        </div>
+                      </div>
                     </td>
                     <td>
                       <div className="font-medium">

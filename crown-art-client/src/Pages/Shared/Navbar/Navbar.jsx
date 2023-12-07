@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import toast from "react-hot-toast";
 import Avatar from "./Avatar";
@@ -6,10 +6,13 @@ import Avatar from "./Avatar";
 const Navbar = () => {
   const { user, logOut } = useAuth();
 
+  const navigate = useNavigate();
+
   const handleLogOut = () => {
     logOut()
       .then(() => {
         toast.success("Logout Successfully");
+        navigate("/");
       })
       .catch((error) => {
         toast.error(error.message);
@@ -25,7 +28,7 @@ const Navbar = () => {
         <Link to="/">Instructors</Link>
       </li>
       <li className="font-semibold">
-        <Link to="/">Courses</Link>
+        <Link to="/courses">Courses</Link>
       </li>
     </>
   );
