@@ -52,7 +52,8 @@ const ManageCourses = () => {
                 <th></th>
                 <th>Course Name</th>
                 <th>Status</th>
-                <th></th>
+                <th>Feedback</th>
+                <th>Actions</th>
                 <th></th>
               </tr>
             </thead>
@@ -73,53 +74,53 @@ const ManageCourses = () => {
                   </td>
 
                   <td>
-                    <div className="capitalize font-medium">
+                    <div
+                      className={`capitalize font-medium p-1 text-white text-xs rounded-md ${
+                        course.status === "approved" ? "bg-emerald-600" : ""
+                      }${course.status === "denied" ? "bg-yellow-400" : ""}${
+                        course.status === "pending" ? "bg-cyan-400" : ""
+                      }`}
+                    >
                       {course.status}
                     </div>
                   </td>
 
-                  <th>
-                    {course?.status === "approved" && (
-                      <button
-                        onClick={() => handleDeny(course)}
-                        className="btn btn-warning btn-xs text-white capitalize"
-                      >
-                        deny
-                      </button>
+                  <td>
+                    {course?.feedback && (
+                      <div className="bg-base-200 w-36 h-full p-1 rounded-md text-xs">
+                        {course?.feedback}
+                      </div>
                     )}
+                  </td>
 
-                    {course?.status === "denied" && (
-                      <Link to={`/dashboard/feedback/${course._id}`}>
-                        <button className="btn btn-info btn-xs text-white capitalize">
-                          feedback
-                        </button>
-                      </Link>
-                    )}
+                  <th>
+                    {course?.status === "denied" &&
+                      course?.feedback === undefined && (
+                        <Link to={`/dashboard/course-feedback/${course._id}`}>
+                          <button className="btn bg-blue-500 hover:bg-blue-400 transition-all btn-xs text-white capitalize w-full">
+                            feedback
+                          </button>
+                        </Link>
+                      )}
 
                     {course?.status === "pending" && (
                       <div className="space-y-2">
                         <div>
                           <button
                             onClick={() => handleApprove(course)}
-                            className="btn btn-success btn-xs text-white capitalize"
+                            className="btn bg-emerald-600 hover:bg-emerald-500 transition-all btn-xs text-white capitalize w-full"
                           >
                             approve
                           </button>
                         </div>
 
                         <div>
-                          <button
-                            onClick={() => handleDeny(course)}
-                            className="btn btn-warning btn-xs text-white capitalize"
-                          >
-                            deny
-                          </button>
-                        </div>
-
-                        <div>
-                          <Link to={`/dashboard/feedback/${course._id}`}>
-                            <button className="btn btn-info btn-xs text-white capitalize">
-                              feedback
+                          <Link to={`/dashboard/course-feedback/${course._id}`}>
+                            <button
+                              onClick={() => handleDeny(course)}
+                              className="btn bg-yellow-400 hover:bg-yellow-300 transition-all btn-xs text-white capitalize w-full"
+                            >
+                              deny
                             </button>
                           </Link>
                         </div>

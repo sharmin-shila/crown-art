@@ -181,7 +181,7 @@ const UpdateCourse = () => {
           <div className="text-center">
             <input
               type="submit"
-              value="Update Course"
+              value="Save Changes"
               className="btn btn-info bg-[#90c641e6] border-0 text-white"
             />
           </div>

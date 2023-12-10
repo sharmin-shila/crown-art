@@ -13,6 +13,7 @@ import CourseList from "../Pages/Dashboard/CourseList/CourseList";
 import Courses from "../Pages/Courses/Courses";
 import UpdateCourse from "../Pages/Dashboard/UpdateCourse/UpdateCourse";
 import ManageCourses from "../Pages/Dashboard/ManageCourses/ManageCourses";
+import FeedbackForm from "../Pages/Dashboard/ManageCourses/FeedbackForm";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <ManageCourses />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "course-feedback/:id",
+        element: (
+          <AdminRoute>
+            <FeedbackForm />
           </AdminRoute>
         ),
       },
