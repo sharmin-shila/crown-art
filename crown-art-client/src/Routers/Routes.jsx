@@ -11,6 +11,7 @@ import AddCourse from "../Pages/Dashboard/AddCourse/AddCourse";
 import InstructorRoute from "./InstructorRoute";
 import CourseList from "../Pages/Dashboard/CourseList/CourseList";
 import Courses from "../Pages/Courses/Courses";
+import UpdateCourse from "../Pages/Dashboard/UpdateCourse/UpdateCourse";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,16 @@ const router = createBrowserRouter([
             <CourseList />
           </InstructorRoute>
         ),
+      },
+      {
+        path: "update-course/:id",
+        element: (
+          <InstructorRoute>
+            <UpdateCourse />
+          </InstructorRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/courses/${params.id}`),
       },
     ],
   },

@@ -33,7 +33,7 @@ const CourseList = () => {
                   <th>Total Enrolled</th>
                   <th>Feedback</th>
                   <th>Status</th>
-                  <th></th>
+                  <th>Update</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,7 +66,7 @@ const CourseList = () => {
                       </div>
                     </td>
                     <td>
-                      <Link to={`/dashboard/update-class/${course._id}`}>
+                      <Link to={`/dashboard/update-course/${course._id}`}>
                         <button className="btn btn-ghost btn-sm">
                           <FaEdit size={20}></FaEdit>
                         </button>
