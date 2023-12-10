@@ -98,7 +98,7 @@ async function run() {
       next();
     };
 
-    // <--- user Apis --->
+    // <--- users Apis --->
 
     app.get("/users", verifyJWT, verifyAdmin, async (req, res) => {
       const result = await usersCollection.find().toArray();
@@ -208,6 +208,11 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/courses/admin", verifyJWT, verifyAdmin, async (req, res) => {
+      const result = await coursesCollection.find().toArray();
+      res.send(result);
+    });
+
     app.get("/courses/instructor/:email", verifyJWT, async (req, res) => {
       const email = req.params.email;
 
@@ -234,7 +239,6 @@ async function run() {
     app.put("/courses/:id", verifyJWT, async (req, res) => {
       const id = req.params.id;
       const info = req.body;
-      console.log(info);
 
       const filter = { _id: new ObjectId(id) };
 
