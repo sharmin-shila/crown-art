@@ -230,6 +230,28 @@ async function run() {
       const result = await coursesCollection.insertOne(req.body);
       res.send(result);
     });
+
+    app.put("/courses/:id", verifyJWT, async (req, res) => {
+      const id = req.params.id;
+      const info = req.body;
+      console.log(info);
+
+      const filter = { _id: new ObjectId(id) };
+
+      const updateDoc = {
+        $set: {
+          name: info.name,
+          image: info.image,
+          description: info.description,
+          seats: info.seats,
+          price: info.price,
+          status: info.status,
+        },
+      };
+
+      const result = await coursesCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
