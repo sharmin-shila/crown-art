@@ -256,6 +256,26 @@ async function run() {
       const result = await coursesCollection.updateOne(filter, updateDoc);
       res.send(result);
     });
+
+    app.patch(
+      "/courses/admin/approve/:id",
+      verifyJWT,
+      verifyAdmin,
+      async (req, res) => {
+        const id = req.params.id;
+
+        const filter = { _id: new ObjectId(id) };
+
+        const updateDoc = {
+          $set: {
+            status: "approved",
+          },
+        };
+
+        const result = await coursesCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      }
+    );
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
