@@ -40,10 +40,11 @@ const CourseList = () => {
                 {courses.map((course, idx) => (
                   <tr key={course._id}>
                     <th>{idx + 1}</th>
+
                     <td>
                       <div className="flex items-center gap-3">
                         <div className="avatar">
-                          <div className="mask mask-squircle w-12 h-12">
+                          <div className="w-40 h-20 rounded">
                             <img src={course?.image} alt="" />
                           </div>
                         </div>
@@ -52,19 +53,24 @@ const CourseList = () => {
                         </div>
                       </div>
                     </td>
+
                     <td>
                       <div className="font-medium">
                         <span className="text-lg">{"\u09F3"}</span>
                         {course.price}
                       </div>
                     </td>
+
                     <td>{course.enrolled}</td>
+
                     <td>{course?.feedback}</td>
+
                     <td>
                       <div className="capitalize font-medium">
                         {course.status}
                       </div>
                     </td>
+
                     <td>
                       <Link to={`/dashboard/update-course/${course._id}`}>
                         <button className="btn btn-ghost btn-sm">

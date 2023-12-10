@@ -12,6 +12,7 @@ import InstructorRoute from "./InstructorRoute";
 import CourseList from "../Pages/Dashboard/CourseList/CourseList";
 import Courses from "../Pages/Courses/Courses";
 import UpdateCourse from "../Pages/Dashboard/UpdateCourse/UpdateCourse";
+import ManageCourses from "../Pages/Dashboard/ManageCourses/ManageCourses";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <Users />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-courses",
+        element: (
+          <AdminRoute>
+            <ManageCourses />
           </AdminRoute>
         ),
       },

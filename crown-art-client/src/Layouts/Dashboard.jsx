@@ -36,6 +36,9 @@ const Dashboard = () => {
                   <li>
                     <Link to="/dashboard/manage-users">All Users</Link>
                   </li>
+                  <li>
+                    <Link to="/dashboard/manage-courses">Manage Course</Link>
+                  </li>
                 </>
               )}
 
