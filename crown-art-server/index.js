@@ -257,6 +257,33 @@ async function run() {
       res.send(result);
     });
 
+    app.put(
+      "/courses/admin/feedback/:id",
+      verifyJWT,
+      verifyAdmin,
+      async (req, res) => {
+        const id = req.params.id;
+        const info = req.body;
+
+        const query = { _id: new ObjectId(id) };
+
+        const options = { upsert: true };
+
+        const updateDoc = {
+          $set: {
+            feedback: info.feedback,
+          },
+        };
+
+        const result = await coursesCollection.updateOne(
+          query,
+          updateDoc,
+          options
+        );
+        res.send(result);
+      }
+    );
+
     app.patch(
       "/courses/admin/approve/:id",
       verifyJWT,
@@ -266,13 +293,15 @@ async function run() {
 
         const filter = { _id: new ObjectId(id) };
 
-        const updateDoc = {
+        const result = await coursesCollection.updateOne(filter, {
+          $unset: {
+            feedback: 1,
+          },
           $set: {
             status: "approved",
           },
-        };
+        });
 
-        const result = await coursesCollection.updateOne(filter, updateDoc);
         res.send(result);
       }
     );
