@@ -129,6 +129,24 @@ const AddCourse = () => {
             <div className="form-control w-full">
               <label className="label">
                 <span className="label-text font-semibold">
+                  Course Description
+                </span>
+              </label>
+              <textarea
+                placeholder="Write something about your course..."
+                {...register("description", { required: true })}
+                className="textarea textarea-bordered textarea-md w-full"
+              ></textarea>
+              {errors.description && (
+                <span className="text-red-600 py-2">
+                  Course Description is required
+                </span>
+              )}
+            </div>
+
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text font-semibold">
                   Available Seats
                 </span>
               </label>
