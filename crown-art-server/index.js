@@ -217,6 +217,15 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/courses/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const query = { _id: new ObjectId(id) };
+
+      const result = await coursesCollection.findOne(query);
+      res.send(result);
+    });
+
     app.post("/courses", verifyJWT, async (req, res) => {
       const result = await coursesCollection.insertOne(req.body);
       res.send(result);
