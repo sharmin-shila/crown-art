@@ -204,7 +204,9 @@ async function run() {
     // <--- courses collections apis --->
 
     app.get("/courses", async (req, res) => {
-      const result = await coursesCollection.find().toArray();
+      const result = await coursesCollection
+        .find({ status: "approved" })
+        .toArray();
       res.send(result);
     });
 
