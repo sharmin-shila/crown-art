@@ -1,9 +1,10 @@
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Container from "../Pages/Shared/Container/Container";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 import useAdmin from "../Hooks/useAdmin/useAdmin";
 import useInstructor from "../Hooks/useInstructor/useInstructor";
+import CustomNavLink from "../Components/CustomNavLink/CustomNavLink";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
@@ -33,30 +34,30 @@ const Dashboard = () => {
             <ul className="menu p-4 w-60 min-h-full bg-[#90c641e6] text-base-content">
               {isAdmin && (
                 <>
-                  {/* <li>
-                    <CustomNavLink
-                      to="/dashboard/manage-users"
-                    >
+                  <li>
+                    <CustomNavLink to="/dashboard/manage-users">
                       Manage Users
                     </CustomNavLink>
                   </li>
                   <li>
-                    <CustomNavLink
-                      to="/dashboard/manage-courses"
-                    >
+                    <CustomNavLink to="/dashboard/manage-courses">
                       Manage Courses
                     </CustomNavLink>
-                  </li> */}
+                  </li>
                 </>
               )}
 
               {isInstructor && (
                 <>
                   <li>
-                    <NavLink to="/dashboard/add-course">Add Course</NavLink>
+                    <CustomNavLink to="/dashboard/add-course">
+                      Add Course
+                    </CustomNavLink>
                   </li>
                   <li>
-                    <NavLink to="/dashboard/course-list">Course List</NavLink>
+                    <CustomNavLink to="/dashboard/course-list">
+                      Course List
+                    </CustomNavLink>
                   </li>
                 </>
               )}
