@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import CourseDetails from "../../../Components/CourseDetails/CourseDetails";
 
 const ManageCourses = () => {
   const [axiosSecure] = useAxiosSecure();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [courseId, setCourseId] = useState(0);
 
   const { data: courses = [], refetch } = useQuery({
     queryKey: ["courses"],
@@ -42,8 +47,14 @@ const ManageCourses = () => {
       });
   };
 
+  const handleModal = (id) => {
+    setCourseId(id);
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
+      <CourseDetails isOpen={isOpen} setIsOpen={setIsOpen} id={courseId} />
       <div className="w-full px-6">
         <div className="overflow-x-auto">
           <table className="table w-full text-center">
@@ -129,7 +140,12 @@ const ManageCourses = () => {
                   </th>
 
                   <th>
-                    <button className="btn bg-green-300 btn-sm">Details</button>
+                    <button
+                      onClick={() => handleModal(course._id)}
+                      className="btn bg-green-300 btn-sm"
+                    >
+                      Details
+                    </button>
                   </th>
                 </tr>
               ))}

@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Container from "../Pages/Shared/Container/Container";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
@@ -33,22 +33,30 @@ const Dashboard = () => {
             <ul className="menu p-4 w-60 min-h-full bg-[#90c641e6] text-base-content">
               {isAdmin && (
                 <>
-                  <li>
-                    <Link to="/dashboard/manage-users">All Users</Link>
+                  {/* <li>
+                    <CustomNavLink
+                      to="/dashboard/manage-users"
+                    >
+                      Manage Users
+                    </CustomNavLink>
                   </li>
                   <li>
-                    <Link to="/dashboard/manage-courses">Manage Course</Link>
-                  </li>
+                    <CustomNavLink
+                      to="/dashboard/manage-courses"
+                    >
+                      Manage Courses
+                    </CustomNavLink>
+                  </li> */}
                 </>
               )}
 
               {isInstructor && (
                 <>
                   <li>
-                    <Link to="/dashboard/add-course">Add Course</Link>
+                    <NavLink to="/dashboard/add-course">Add Course</NavLink>
                   </li>
                   <li>
-                    <Link to="/dashboard/course-list">Course List</Link>
+                    <NavLink to="/dashboard/course-list">Course List</NavLink>
                   </li>
                 </>
               )}

@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navbar a.active {
+  color: white;
+}
+
+.navbar a.active {
+  background-color: rgb(34 197 94);
+}
+
+.drawer-side a.active {
+  color: black;
+}
+
+.drawer-side a {
+  background-color: transparent;
+}
