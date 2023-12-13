@@ -31,9 +31,6 @@ const Navbar = () => {
         <CustomNavLink to="/">Home</CustomNavLink>
       </li>
       <li className="font-semibold">
-        <CustomNavLink to="/instructors">Instructors</CustomNavLink>
-      </li>
-      <li className="font-semibold">
         <CustomNavLink to="/courses">Courses</CustomNavLink>
       </li>
     </>
