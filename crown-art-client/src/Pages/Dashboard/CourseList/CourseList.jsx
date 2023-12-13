@@ -3,6 +3,7 @@ import useAuth from "../../../Hooks/useAuth/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
+import EmptyInfo from "../../Shared/EmptyInfo/EmptyInfo";
 
 const CourseList = () => {
   const { user } = useAuth();
@@ -84,7 +85,11 @@ const CourseList = () => {
             </table>
           </div>
         ) : (
-          ""
+          <EmptyInfo
+            message={"You haven't added any course. Add first!"}
+            address={"/dashboard/add-course"}
+            label={"add course"}
+          />
         )}
       </div>
     </>

@@ -15,6 +15,8 @@ import UpdateCourse from "../Pages/Dashboard/UpdateCourse/UpdateCourse";
 import ManageCourses from "../Pages/Dashboard/ManageCourses/ManageCourses";
 import FeedbackForm from "../Pages/Dashboard/ManageCourses/FeedbackForm";
 import SelectedCourses from "../Pages/Dashboard/SelectedCourses/SelectedCourses";
+import EnrolledCourses from "../Pages/Dashboard/EnrolledCourses/EnrolledCourses";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -103,6 +105,14 @@ const router = createBrowserRouter([
       {
         path: "selected-courses",
         element: <SelectedCourses />,
+      },
+      {
+        path: "enrolled-courses",
+        element: <EnrolledCourses />,
+      },
+      {
+        path: "payment/:id",
+        element: <Payment />,
       },
     ],
   },

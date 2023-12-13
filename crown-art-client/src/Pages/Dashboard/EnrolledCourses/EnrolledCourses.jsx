@@ -1,6 +1,7 @@
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import EmptyInfo from "../../Shared/EmptyInfo/EmptyInfo";
 
 const EnrolledCourses = () => {
   const { user } = useAuth();
@@ -18,37 +19,45 @@ const EnrolledCourses = () => {
   return (
     <>
       <div className="w-full px-6">
-        <div className="overflow-x-auto">
-          <table className="table w-full text-center">
-            <thead className="bg-[#90c641e6]">
-              <tr className="text-white capitalize">
-                <th></th>
-                <th>Name</th>
-                <th>Course Fee</th>
-                <th>Date</th>
-                <th>Transaction Id</th>
-              </tr>
-            </thead>
-            <tbody>
-              {courses &&
-                courses.map((course, idx) => (
-                  <tr key={course._id}>
-                    <th>{idx + 1}</th>
+        {courses && Array.isArray(courses) && courses.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="table w-full text-center">
+              <thead className="bg-[#90c641e6]">
+                <tr className="text-white capitalize">
+                  <th></th>
+                  <th>Name</th>
+                  <th>Course Fee</th>
+                  <th>Date</th>
+                  <th>Transaction Id</th>
+                </tr>
+              </thead>
+              <tbody>
+                {courses &&
+                  courses.map((course, idx) => (
+                    <tr key={course._id}>
+                      <th>{idx + 1}</th>
 
-                    <td>
-                      <div className="font-bold">{course?.courseName}</div>
-                    </td>
+                      <td>
+                        <div className="font-bold">{course?.courseName}</div>
+                      </td>
 
-                    <td>${course?.price}</td>
+                      <td>${course?.price}</td>
 
-                    <td>{new Date(course?.date).toDateString()}</td>
+                      <td>{new Date(course?.date).toDateString()}</td>
 
-                    <td>{course?.transactionId}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+                      <td>{course?.transactionId}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <EmptyInfo
+            message={"You didn't enrolled any course. Pay first!"}
+            address={"/dashboard/selected-courses"}
+            label={"pay"}
+          />
+        )}
       </div>
     </>
   );
