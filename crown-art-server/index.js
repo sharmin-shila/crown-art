@@ -69,6 +69,7 @@ async function run() {
 
     const usersCollection = client.db("crownArtDB").collection("users");
     const coursesCollection = client.db("crownArtDB").collection("courses");
+    const bookingsCollection = client.db("crownArtDB").collection("bookings");
 
     // <--- json web token apis --->
 
@@ -336,6 +337,15 @@ async function run() {
         res.send(result);
       }
     );
+
+    // <---- bookings collection apis ---->
+
+    app.post("/courseBookings", verifyJWT, async (req, res) => {
+      const courseItem = req.body;
+
+      const result = await bookingsCollection.insertOne(courseItem);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
