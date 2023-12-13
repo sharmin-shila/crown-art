@@ -429,6 +429,21 @@ async function run() {
 
       res.send({ insertResult, updateCourseSeats, deleteResult });
     });
+
+    app.get("/enrolled-courses/:email", verifyJWT, async (req, res) => {
+      const email = req.params.email;
+      const result = await paymentsCollection
+        .aggregate([
+          {
+            $match: {
+              email: email,
+            },
+          },
+          { $sort: { date: -1 } },
+        ])
+        .toArray();
+      res.send(result);
+    });
   } finally {
   }
 }
