@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
 import useUserInfo from "../../Hooks/useUserInfo/useUserInfo";
+import useAxiosSecure from "../../Hooks/useAxiosSecure/useAxiosSecure";
+import { toast } from "react-hot-toast";
 
 const fetchData = async () => {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/courses`);
@@ -14,6 +15,8 @@ const Courses = () => {
 
   const [userInfo] = useUserInfo();
 
+  const [axiosSecure] = useAxiosSecure();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,7 +27,20 @@ const Courses = () => {
 
   const handleAddCourse = (course) => {
     if (user && user?.email) {
-      console.log(course);
+      const { _id, ...rest } = course;
+
+      const bookingItem = {
+        bookingItemId: _id,
+        ...rest,
+        email: user?.email,
+      };
+
+      axiosSecure.post("/courseBookings", bookingItem).then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Course added on the selected courses");
+          navigate("/dashboard/selected-courses");
+        }
+      });
     } else {
       toast.error("you must have to login");
       navigate("/login", { state: { from: location } });
@@ -62,12 +78,26 @@ const Courses = () => {
                 {course.price}
               </p>
               <div className="card-actions">
-                <button
-                  onClick={() => handleAddCourse(course)}
-                  className="btn bg-purple-600 hover:bg-rose-400 transition-all btn-md"
-                >
-                  Enroll Course
-                </button>
+                {course.seats === 0 ? (
+                  <button className="btn bg-rose-400  btn-md cursor-not-allowed disabled">
+                    Enroll Course
+                  </button>
+                ) : userInfo?.role === "admin" ? (
+                  <button className="btn bg-rose-400  btn-md cursor-not-allowed disabled">
+                    Enroll Course
+                  </button>
+                ) : userInfo?.role === "instructor" ? (
+                  <button className="btn bg-rose-400  btn-md cursor-not-allowed disabled">
+                    Enroll Course
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleAddCourse(course)}
+                    className="btn bg-purple-600 hover:bg-rose-400 transition-all btn-md"
+                  >
+                    Enroll Course
+                  </button>
+                )}
               </div>
             </div>
           </div>

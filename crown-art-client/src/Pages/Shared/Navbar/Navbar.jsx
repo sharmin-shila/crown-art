@@ -91,7 +91,7 @@ const Navbar = () => {
                         ? "/dashboard/manage-users"
                         : isInstructor
                         ? "/dashboard/add-course"
-                        : "/dashboard/selected-course"
+                        : "/dashboard/selected-courses"
                     }
                   >
                     Dashboard

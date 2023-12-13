@@ -14,6 +14,7 @@ import Courses from "../Pages/Courses/Courses";
 import UpdateCourse from "../Pages/Dashboard/UpdateCourse/UpdateCourse";
 import ManageCourses from "../Pages/Dashboard/ManageCourses/ManageCourses";
 import FeedbackForm from "../Pages/Dashboard/ManageCourses/FeedbackForm";
+import SelectedCourses from "../Pages/Dashboard/SelectedCourses/SelectedCourses";
 
 const router = createBrowserRouter([
   {
@@ -71,7 +72,7 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-      
+
       {
         path: "add-course",
         element: (
@@ -97,6 +98,11 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/courses/${params.id}`),
+      },
+
+      {
+        path: "selected-courses",
+        element: <SelectedCourses />,
       },
     ],
   },

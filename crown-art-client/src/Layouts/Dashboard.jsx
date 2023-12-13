@@ -8,8 +8,8 @@ import CustomNavLink from "../Components/CustomNavLink/CustomNavLink";
 import { FaUsers } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { GiClassicalKnowledge } from "react-icons/gi";
-// import { MdClass } from "react-icons/md";
-// import { FcPaid } from "react-icons/fc";
+import { MdClass } from "react-icons/md";
+import { FcPaid } from "react-icons/fc";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
@@ -56,6 +56,29 @@ const Dashboard = () => {
                       <CustomNavLink to="/dashboard/course-list">
                         <SiGoogleclassroom size={20} />
                         Course List
+                      </CustomNavLink>
+                    </li>
+                  </>
+                )}
+
+                {!isAdmin && !isInstructor && (
+                  <>
+                    <li>
+                      <CustomNavLink
+                        to="/dashboard/selected-courses"
+                        className="text-white font-medium"
+                      >
+                        <MdClass size={20} />
+                        Selected Courses
+                      </CustomNavLink>
+                    </li>
+                    <li>
+                      <CustomNavLink
+                        to="/dashboard/enrolled-courses"
+                        className="text-white font-medium"
+                      >
+                        <FcPaid size={20} />
+                        Enrolled Courses
                       </CustomNavLink>
                     </li>
                   </>
