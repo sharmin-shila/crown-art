@@ -105,6 +105,15 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/currentUser/:email", verifyJWT, async (req, res) => {
+      const email = req.params.email;
+
+      const query = { email: email };
+
+      const result = await usersCollection.findOne(query);
+      res.send(result);
+    });
+
     app.get("/users/admin/:email", verifyJWT, async (req, res) => {
       const email = req.params.email;
 
