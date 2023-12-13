@@ -339,7 +339,7 @@ async function run() {
     );
 
     // <---- bookings collection apis ---->
-    
+
     app.get("/courseBookings", verifyJWT, async (req, res) => {
       const email = req.query.email;
 
@@ -365,6 +365,15 @@ async function run() {
       const courseItem = req.body;
 
       const result = await bookingsCollection.insertOne(courseItem);
+      res.send(result);
+    });
+
+    app.delete("/courseBookings/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const query = { _id: new ObjectId(id) };
+
+      const result = await bookingsCollection.deleteOne(query);
       res.send(result);
     });
   } finally {
