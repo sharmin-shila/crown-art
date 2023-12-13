@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -56,9 +57,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    // await client.connect();
-    // Send a ping to confirm a successful connection
     client.db("admin").command({ ping: 1 });
 
     console.log(
@@ -70,6 +68,7 @@ async function run() {
     const usersCollection = client.db("crownArtDB").collection("users");
     const coursesCollection = client.db("crownArtDB").collection("courses");
     const bookingsCollection = client.db("crownArtDB").collection("bookings");
+    const paymentsCollection = client.db("crownArtDB").collection("payments");
 
     // <--- json web token apis --->
 
@@ -384,6 +383,26 @@ async function run() {
 
       const result = await bookingsCollection.deleteOne(query);
       res.send(result);
+    });
+
+    // <---- create payment intent ---->
+
+    app.post("/create-payment-intent", verifyJWT, async (req, res) => {
+      const { price } = req.body;
+
+      if (price) {
+        const amount = parseFloat(price) * 100;
+
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: amount,
+          currency: "usd",
+          payment_method_types: ["card"],
+        });
+
+        res.send({
+          clientSecret: paymentIntent.client_secret,
+        });
+      }
     });
   } finally {
   }
