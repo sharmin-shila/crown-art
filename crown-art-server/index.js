@@ -404,6 +404,31 @@ async function run() {
         });
       }
     });
+
+    // <---payments collection apis--->
+
+    app.post("/payments", verifyJWT, async (req, res) => {
+      const payment = req.body;
+
+      const insertResult = await paymentsCollection.insertOne(payment);
+
+      const courseId = { _id: new ObjectId(payment.bookingItemId) };
+      const seatsToDecrease = 1;
+
+      const courseData = await coursesCollection.findOne(courseId);
+      const currentEnrollment = courseData.enrolled;
+      const newEnrollment = currentEnrollment + 1;
+
+      const updateCourseSeats = await coursesCollection.updateOne(courseId, {
+        $inc: { seats: -seatsToDecrease, enrolled: newEnrollment },
+      });
+
+      const query = { _id: new ObjectId(payment.bookedItemId) };
+
+      const deleteResult = await bookingsCollection.deleteMany(query);
+
+      res.send({ insertResult, updateCourseSeats, deleteResult });
+    });
   } finally {
   }
 }
