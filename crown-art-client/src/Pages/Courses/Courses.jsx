@@ -1,4 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import useUserInfo from "../../Hooks/useUserInfo/useUserInfo";
 
 const fetchData = async () => {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/courses`);
@@ -6,10 +10,26 @@ const fetchData = async () => {
 };
 
 const Courses = () => {
+  const { user } = useAuth();
+
+  const [userInfo] = useUserInfo();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const { data: courses = [] } = useQuery({
     queryKey: ["courses"],
     queryFn: fetchData,
   });
+
+  const handleAddCourse = (course) => {
+    if (user && user?.email) {
+      console.log(course);
+    } else {
+      toast.error("you must have to login");
+      navigate("/login", { state: { from: location } });
+    }
+  };
 
   return (
     <>
@@ -42,7 +62,10 @@ const Courses = () => {
                 {course.price}
               </p>
               <div className="card-actions">
-                <button className="btn bg-purple-600 hover:bg-rose-400 transition-all btn-md">
+                <button
+                  onClick={() => handleAddCourse(course)}
+                  className="btn bg-purple-600 hover:bg-rose-400 transition-all btn-md"
+                >
                   Enroll Course
                 </button>
               </div>

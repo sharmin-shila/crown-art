@@ -1,27 +1,17 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const CustomNavLink = ({ to, children }) => {
-  const navigate = useNavigate();
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    navigate(to);
-  };
-
   return (
-    <Link
+    <NavLink
       to={to}
-      className="text-white font-medium hover:text-black hover:bg-green-300 px-3 py-2 rounded-md transition-all duration-300"
-      style={{
-        ...(window.location.pathname === to && {
-          backgroundColor: "transparent",
-          color: "black",
-        }),
-      }}
-      onClick={handleClick}
+      className={({ isActive }) =>
+        isActive
+          ? "p-2 rounded-md bg-green-300 text-slate-700 cursor-pointer flex gap-2 items-center"
+          : "p-2 rounded-md group hover:bg-green-300 text-white cursor-pointer transition-all flex gap-2 items-center"
+      }
     >
       {children}
-    </Link>
+    </NavLink>
   );
 };
 

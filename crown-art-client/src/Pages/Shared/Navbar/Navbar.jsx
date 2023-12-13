@@ -2,9 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import toast from "react-hot-toast";
 import Avatar from "./Avatar";
+import CustomNavLink from "../../../Components/CustomNavLink/CustomNavLink";
+import useAdmin from "../../../Hooks/useAdmin/useAdmin";
+import useInstructor from "../../../Hooks/useInstructor/useInstructor";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+
+  const { isAdmin } = useAdmin();
+  const { isInstructor } = useInstructor();
 
   const navigate = useNavigate();
 
@@ -22,20 +28,20 @@ const Navbar = () => {
   const navOptions = (
     <>
       <li className="font-semibold">
-        <Link to="/">Home</Link>
+        <CustomNavLink to="/">Home</CustomNavLink>
       </li>
       <li className="font-semibold">
-        <Link to="/">Instructors</Link>
+        <CustomNavLink to="/instructors">Instructors</CustomNavLink>
       </li>
       <li className="font-semibold">
-        <Link to="/courses">Courses</Link>
+        <CustomNavLink to="/courses">Courses</CustomNavLink>
       </li>
     </>
   );
 
   return (
     <>
-      <div className="navbar fixed z-10 bg-[#283333cc] xl:px-20 md:px-10 sm:px-2 px-4 text-base-100">
+      <div className="navbar fixed z-10 bg-slate-700 xl:px-20 md:px-10 sm:px-2 px-4 text-base-100">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -56,7 +62,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {navOptions}
             </ul>
@@ -66,7 +72,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navOptions}</ul>
+          <ul className="menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
           {user?.email ? (
@@ -79,7 +85,17 @@ const Navbar = () => {
                 className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-[#283333cc] rounded-box w-52"
               >
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link
+                    to={
+                      isAdmin
+                        ? "/dashboard/manage-users"
+                        : isInstructor
+                        ? "/dashboard/add-course"
+                        : "/dashboard/selected-course"
+                    }
+                  >
+                    Dashboard
+                  </Link>
                 </li>
                 <li>
                   <Link onClick={handleLogOut}>Logout</Link>

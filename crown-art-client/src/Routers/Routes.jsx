@@ -38,8 +38,9 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
-    path: "/dashboard",
+    path: "dashboard",
     element: (
       <PrivateRoute>
         <Dashboard />
@@ -70,6 +71,7 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      
       {
         path: "add-course",
         element: (
