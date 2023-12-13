@@ -361,6 +361,15 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/courseBookings/:id", verifyJWT, async (req, res) => {
+      const id = req.params.id;
+
+      const query = { _id: new ObjectId(id) };
+
+      const result = await bookingsCollection.findOne(query);
+      res.send(result);
+    });
+
     app.post("/courseBookings", verifyJWT, async (req, res) => {
       const courseItem = req.body;
 
@@ -377,8 +386,6 @@ async function run() {
       res.send(result);
     });
   } finally {
-    // Ensures that the client will close when you finish/error
-    // await client.close();
   }
 }
 run().catch(console.dir);
