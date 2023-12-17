@@ -18,7 +18,7 @@ const FeedbackForm = () => {
 
   const onSubmit = (data) => {
     axiosSecure
-      .put(`${import.meta.env.VITE_API_URL}/courses/admin/feedback/${id}`, data)
+      .put(`${import.meta.env.VITE_API_URL}/admin/manageCourse/feedback/${id}`, data)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           toast.success("Your feedback is submitted!");

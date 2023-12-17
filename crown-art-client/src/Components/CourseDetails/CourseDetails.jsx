@@ -9,7 +9,7 @@ const CourseDetails = ({ isOpen, setIsOpen, id }) => {
     queryKey: ["courses"],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `${import.meta.env.VITE_API_URL}/courses/admin`
+        `${import.meta.env.VITE_API_URL}/admin/manageCourse`
       );
       return res.data;
     },

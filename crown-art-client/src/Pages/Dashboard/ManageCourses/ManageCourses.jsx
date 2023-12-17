@@ -15,7 +15,7 @@ const ManageCourses = () => {
     queryKey: ["courses"],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `${import.meta.env.VITE_API_URL}/courses/admin`
+        `${import.meta.env.VITE_API_URL}/admin/manageCourse`
       );
       return res.data;
     },
@@ -24,7 +24,7 @@ const ManageCourses = () => {
   const handleApprove = (course) => {
     axiosSecure
       .patch(
-        `${import.meta.env.VITE_API_URL}/courses/admin/approve/${course?._id}`
+        `${import.meta.env.VITE_API_URL}/admin/manageCourse/approve/${course?._id}`
       )
       .then((res) => {
         if (res.data.modifiedCount > 0) {
@@ -37,7 +37,7 @@ const ManageCourses = () => {
   const handleDeny = (course) => {
     axiosSecure
       .patch(
-        `${import.meta.env.VITE_API_URL}/courses/admin/deny/${course?._id}`
+        `${import.meta.env.VITE_API_URL}/admin/manageCourse/deny/${course?._id}`
       )
       .then((res) => {
         if (res.data.modifiedCount > 0) {

@@ -39,6 +39,8 @@ const Courses = () => {
         if (res.data.insertedId) {
           toast.success("Course added on the selected courses");
           navigate("/dashboard/selected-courses");
+        } else {
+          toast.error(res.data.message);
         }
       });
     } else {
