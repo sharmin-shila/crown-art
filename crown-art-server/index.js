@@ -105,7 +105,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/currentUser/:email", verifyJWT, async (req, res) => {
+    app.get("/currentUser/:email", async (req, res) => {
       const email = req.params.email;
 
       const query = { email: email };
@@ -212,15 +212,15 @@ async function run() {
 
     // <--- courses collections apis --->
 
+    app.get("/admin/manageCourse", verifyJWT, verifyAdmin, async (req, res) => {
+      const result = await coursesCollection.find().toArray();
+      res.send(result);
+    });
+
     app.get("/courses", async (req, res) => {
       const result = await coursesCollection
         .find({ status: "approved" })
         .toArray();
-      res.send(result);
-    });
-
-    app.get("/courses/admin", verifyJWT, verifyAdmin, async (req, res) => {
-      const result = await coursesCollection.find().toArray();
       res.send(result);
     });
 
@@ -269,7 +269,7 @@ async function run() {
     });
 
     app.put(
-      "/courses/admin/feedback/:id",
+      "/admin/manageCourse/feedback/:id",
       verifyJWT,
       verifyAdmin,
       async (req, res) => {
@@ -296,7 +296,7 @@ async function run() {
     );
 
     app.patch(
-      "/courses/admin/approve/:id",
+      "/admin/manageCourse/approve/:id",
       verifyJWT,
       verifyAdmin,
       async (req, res) => {
@@ -318,7 +318,7 @@ async function run() {
     );
 
     app.patch(
-      "/courses/admin/deny/:id",
+      "/admin/manageCourse/deny/:id",
       verifyJWT,
       verifyAdmin,
       async (req, res) => {
@@ -372,8 +372,19 @@ async function run() {
     app.post("/courseBookings", verifyJWT, async (req, res) => {
       const courseItem = req.body;
 
-      const result = await bookingsCollection.insertOne(courseItem);
-      res.send(result);
+      const existingBooking = await bookingsCollection.findOne({
+        $and: [
+          { bookedItemId: courseItem?.bookedItemId },
+          { email: courseItem?.email },
+        ],
+      });
+
+      if (existingBooking) {
+        res.send({ message: "Already added once!" });
+      } else {
+        const result = await bookingsCollection.insertOne(courseItem);
+        res.send(result);
+      }
     });
 
     app.delete("/courseBookings/:id", async (req, res) => {
