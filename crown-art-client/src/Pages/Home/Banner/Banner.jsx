@@ -45,6 +45,7 @@ const Banner = () => {
             </div>
           </div>
         </SwiperSlide>
+
         <SwiperSlide>
           <div className="relative">
             <img
@@ -62,6 +63,7 @@ const Banner = () => {
             </div>
           </div>
         </SwiperSlide>
+
         <SwiperSlide>
           <div className="relative">
             <img
@@ -79,6 +81,7 @@ const Banner = () => {
             </div>
           </div>
         </SwiperSlide>
+
         <SwiperSlide>
           <div className="relative">
             <img
@@ -96,6 +99,7 @@ const Banner = () => {
             </div>
           </div>
         </SwiperSlide>
+        
         <SwiperSlide>
           <div className="relative">
             <img

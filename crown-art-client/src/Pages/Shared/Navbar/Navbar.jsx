@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const navOptions = (
     <>
-      <li className="font-semibold">
+      <li className="font-semibold mx-2">
         <CustomNavLink to="/">Home</CustomNavLink>
       </li>
       <li className="font-semibold">

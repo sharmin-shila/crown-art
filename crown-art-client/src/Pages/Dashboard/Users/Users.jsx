@@ -113,10 +113,6 @@ const Users = () => {
                       </button>
                     )}
                   </th>
-
-                  <th>
-                    <button className="btn bg-green-300 btn-sm">Details</button>
-                  </th>
                 </tr>
               ))}
             </tbody>
