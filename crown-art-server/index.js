@@ -4,6 +4,8 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
+const nodemailer = require("nodemailer");
+const moment = require("moment");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -33,6 +35,32 @@ const verifyJWT = (req, res, next) => {
 
     req.decoded = decoded;
     next();
+  });
+};
+
+// send confirmation email
+const sendMail = (emailData, emailAddress) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: emailAddress,
+    subject: emailData.subject,
+    html: `<div>${emailData?.message}</div>`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(`Email send to: ${info.response}`);
+    }
   });
 };
 
@@ -421,7 +449,23 @@ async function run() {
     app.post("/payments", verifyJWT, async (req, res) => {
       const payment = req.body;
 
+      const formattedDate = new Date(payment.date).toLocaleString();
+
       const insertResult = await paymentsCollection.insertOne(payment);
+
+      sendMail(
+        {
+          subject: "Payment Successful!",
+          message: `
+          <h2>You are welcome to "${payment.courseName}"</h2>
+          <p>Course Fee: ${payment.price} tk</p>
+          <p>Date of purchase: ${moment(formattedDate).format(
+            "DD MMMM, YYYY hh:mm A"
+          )}</p>
+        `,
+        },
+        payment?.email
+      );
 
       const courseId = { _id: new ObjectId(payment.bookingItemId) };
       const seatsToDecrease = 1;
