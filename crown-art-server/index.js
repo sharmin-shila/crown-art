@@ -365,6 +365,13 @@ async function run() {
       }
     );
 
+    app.delete("/courses/:id", verifyJWT, async (req, res) => {
+      const result = await coursesCollection.deleteOne({
+        _id: new ObjectId(req.params.id),
+      });
+      res.send(result);
+    });
+
     // <---- bookings collection apis ---->
 
     app.get("/courseBookings", verifyJWT, async (req, res) => {
