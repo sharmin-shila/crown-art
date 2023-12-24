@@ -238,6 +238,30 @@ async function run() {
       res.send(result);
     });
 
+    app.put("/instructor/:email", verifyJWT, async (req, res) => {
+      const userData = req.body;
+
+      const query = { email: req.params.email };
+
+      const user = await usersCollection.findOne(query);
+
+      const updateDoc = {
+        $set: {
+          name: userData?.name,
+          image: userData?.image,
+          bio: userData?.bio,
+          qualification: userData?.qualification,
+          experience: userData?.experience,
+          teachingArea: userData?.teachingArea,
+        },
+      };
+
+      if (user?.role === "instructor") {
+        const result = await usersCollection.updateOne(query, updateDoc);
+        res.send(result);
+      }
+    });
+
     // <--- courses collections apis --->
 
     app.get("/admin/manageCourse", verifyJWT, verifyAdmin, async (req, res) => {
