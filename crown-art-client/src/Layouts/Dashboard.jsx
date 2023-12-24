@@ -10,6 +10,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { GiClassicalKnowledge } from "react-icons/gi";
 import { MdClass } from "react-icons/md";
 import { FcPaid } from "react-icons/fc";
+import { CgProfile } from "react-icons/cg";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
@@ -56,6 +57,12 @@ const Dashboard = () => {
                       <CustomNavLink to="/dashboard/course-list">
                         <SiGoogleclassroom size={20} />
                         Course List
+                      </CustomNavLink>
+                    </li>
+                    <li>
+                      <CustomNavLink to="/dashboard/update-profile">
+                        <CgProfile size={20} />
+                        Update Profile
                       </CustomNavLink>
                     </li>
                   </>
