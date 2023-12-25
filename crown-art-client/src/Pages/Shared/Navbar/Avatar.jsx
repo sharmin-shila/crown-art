@@ -1,13 +1,13 @@
-import useAuth from "../../../Hooks/useAuth/useAuth";
+import useUserInfo from "../../../Hooks/useUserInfo/useUserInfo";
 import avatarImg from "../../../assets/avatar/placeholder.jpg";
 
 const Avatar = () => {
-  const { user } = useAuth();
+  const [userInfo] = useUserInfo();
 
   return (
     <>
       <img
-        src={user && user.photoURL ? user.photoURL : avatarImg}
+        src={userInfo && userInfo.image ? userInfo.image : avatarImg}
         alt="avatar"
         width="30"
         height="30"

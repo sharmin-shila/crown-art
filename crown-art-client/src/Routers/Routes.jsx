@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../Layouts/App";
 import Home from "../Pages/Home/Home/Home";
 import Courses from "../Pages/Courses/Courses";
+import Instructors from "../Pages/Instructors/Instructors";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
@@ -14,7 +15,7 @@ import InstructorRoute from "./InstructorRoute";
 import AddCourse from "../Pages/Dashboard/AddCourse/AddCourse";
 import CourseList from "../Pages/Dashboard/CourseList/CourseList";
 import UpdateCourse from "../Pages/Dashboard/UpdateCourse/UpdateCourse";
-import UpdateProfile from "../Pages/Dashboard/UpdateProfile/UpdateProfile";
+import InstructorProfile from "../Pages/Dashboard/InstructorProfile/InstructorProfile";
 import SelectedCourses from "../Pages/Dashboard/SelectedCourses/SelectedCourses";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import EnrolledCourses from "../Pages/Dashboard/EnrolledCourses/EnrolledCourses";
@@ -33,12 +34,24 @@ const router = createBrowserRouter([
         element: <Courses />,
       },
       {
+        path: "/instructors",
+        element: <Instructors />,
+      },
+      {
         path: "/login",
         element: <Login />,
       },
       {
         path: "/sign-up",
         element: <SignUp />,
+      },
+      {
+        path: "instructor-profile",
+        element: (
+          <InstructorRoute>
+            <InstructorProfile />
+          </InstructorRoute>
+        ),
       },
     ],
   },
@@ -101,14 +114,6 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/courses/${params.id}`),
-      },
-      {
-        path: "update-profile",
-        element: (
-          <InstructorRoute>
-            <UpdateProfile />
-          </InstructorRoute>
-        ),
       },
 
       {

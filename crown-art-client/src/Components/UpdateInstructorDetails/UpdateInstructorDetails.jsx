@@ -1,20 +1,18 @@
-import { useNavigate } from "react-router-dom";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
-import useUserInfo from "../../../Hooks/useUserInfo/useUserInfo";
+import useAxiosSecure from "../../Hooks/useAxiosSecure/useAxiosSecure";
+import Modal from "../Modal/Modal";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const UpdateProfile = () => {
-  const [userInfo] = useUserInfo();
+const UpdateInstructorDetails = ({ isOpen, setIsOpen, instructorInfo }) => {
+  const { name, email, image, bio, qualification, experience, teachingArea } =
+    instructorInfo;
 
   const [axiosSecure] = useAxiosSecure();
 
-  const navigate = useNavigate();
-
   const {
     register,
-    handleSubmit,
     formState: { errors },
+    handleSubmit,
   } = useForm();
 
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${
@@ -23,18 +21,15 @@ const UpdateProfile = () => {
 
   const handleUpdateProfile = (data) => {
     if (data.image[0] === undefined) {
-      data.image = userInfo?.image;
+      data.image = image;
 
       axiosSecure
-        .put(
-          `${import.meta.env.VITE_API_URL}/instructor/${userInfo?.email}`,
-          data
-        )
+        .put(`${import.meta.env.VITE_API_URL}/instructor/${email}`, data)
         .then((res) => {
           console.log(res);
           if (res.data.modifiedCount > 0) {
             toast.success("Profile updated successfully");
-            navigate("/");
+            setIsOpen(!isOpen);
           }
         })
         .catch((error) => {
@@ -53,14 +48,11 @@ const UpdateProfile = () => {
           data.image = imageResponse.data.display_url;
 
           axiosSecure
-            .put(
-              `${import.meta.env.VITE_API_URL}/instructor/${userInfo?.email}`,
-              data
-            )
+            .put(`${import.meta.env.VITE_API_URL}/instructor/${email}`, data)
             .then((res) => {
               if (res.data.modifiedCount > 0) {
                 toast.success("Profile updated successfully");
-                navigate("/");
+                setIsOpen(!isOpen);
               }
             })
             .catch((error) => {
@@ -71,10 +63,10 @@ const UpdateProfile = () => {
   };
 
   return (
-    <>
-      <div className="w-full px-6">
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={name}>
+      <div className="mt-4">
         <form onSubmit={handleSubmit(handleUpdateProfile)}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="space-y-4">
             <div className="form-control w-full">
               <label className="label">
                 <span className="label-text font-semibold">Name</span>
@@ -82,11 +74,14 @@ const UpdateProfile = () => {
               <input
                 type="text"
                 placeholder="Your Name"
-                {...register("name", { required: true })}
+                {...register("name", { required: "Name is required" })}
+                defaultValue={name}
                 className="input input-bordered w-full"
               />
               {errors.name && (
-                <span className="text-red-600 py-2">Name is required</span>
+                <span className="text-red-600 py-2">
+                  {errors.name?.message}
+                </span>
               )}
             </div>
 
@@ -107,11 +102,12 @@ const UpdateProfile = () => {
               </label>
               <textarea
                 placeholder="Write something about you..."
-                {...register("bio", { required: true })}
+                {...register("bio", { required: "Biography is required" })}
+                defaultValue={bio}
                 className="textarea textarea-bordered textarea-md w-full h-20"
               ></textarea>
               {errors.bio && (
-                <span className="text-red-600 py-2">Biography is required</span>
+                <span className="text-red-600 py-2">{errors.bio?.message}</span>
               )}
             </div>
 
@@ -123,12 +119,15 @@ const UpdateProfile = () => {
               </label>
               <textarea
                 placeholder="Write something about your academic qualification..."
-                {...register("qualification", { required: true })}
+                {...register("qualification", {
+                  required: "Academic Qualification is required",
+                })}
+                defaultValue={qualification}
                 className="textarea textarea-bordered textarea-md w-full h-20"
               ></textarea>
               {errors.qualification && (
                 <span className="text-red-600 py-2">
-                  Academic Qualification is required
+                  {errors.qualification?.message}
                 </span>
               )}
             </div>
@@ -141,12 +140,15 @@ const UpdateProfile = () => {
               </label>
               <textarea
                 placeholder="Write something about your professional experience..."
-                {...register("experience", { required: true })}
+                {...register("experience", {
+                  required: "Professional Experience is required",
+                })}
+                defaultValue={experience}
                 className="textarea textarea-bordered textarea-md w-full h-20"
               ></textarea>
               {errors.experience && (
                 <span className="text-red-600 py-2">
-                  Professional Experience is required
+                  {errors.experience?.message}
                 </span>
               )}
             </div>
@@ -157,28 +159,31 @@ const UpdateProfile = () => {
               </label>
               <textarea
                 placeholder="Write something about teaching area..."
-                {...register("teachingArea", { required: true })}
+                {...register("teachingArea", {
+                  required: "Teaching Area is required",
+                })}
+                defaultValue={teachingArea}
                 className="textarea textarea-bordered textarea-md w-full h-20"
               ></textarea>
               {errors.teachingArea && (
                 <span className="text-red-600 py-2">
-                  Teaching Area is required
+                  {errors.teachingArea?.message}
                 </span>
               )}
             </div>
           </div>
 
-          <div className="text-center">
+          <div className="text-center mt-8">
             <input
               type="submit"
               value="Update Profile"
-              className="btn btn-info bg-[#90c641e6] border-0 text-white"
+              className="btn btn-info bg-[#90c641e6] border-0 text-white btn-md"
             />
           </div>
         </form>
       </div>
-    </>
+    </Modal>
   );
 };
 
-export default UpdateProfile;
+export default UpdateInstructorDetails;

@@ -30,8 +30,11 @@ const Navbar = () => {
       <li className="font-semibold mx-2">
         <CustomNavLink to="/">Home</CustomNavLink>
       </li>
-      <li className="font-semibold">
+      <li className="font-semibold mx-2">
         <CustomNavLink to="/courses">Courses</CustomNavLink>
+      </li>
+      <li className="font-semibold">
+        <CustomNavLink to="/instructors">Instructors</CustomNavLink>
       </li>
     </>
   );
@@ -79,21 +82,28 @@ const Navbar = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-[#283333cc] rounded-box w-52"
+                className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-200 text-black rounded-box w-40 font-semibold"
               >
-                <li>
-                  <Link
-                    to={
-                      isAdmin
-                        ? "/dashboard/manage-users"
-                        : isInstructor
-                        ? "/dashboard/add-course"
-                        : "/dashboard/selected-courses"
-                    }
-                  >
-                    Dashboard
-                  </Link>
-                </li>
+                {isAdmin && (
+                  <li>
+                    <Link to={"/dashboard/manage-courses"}>Dashboard</Link>
+                  </li>
+                )}
+                {isInstructor && (
+                  <>
+                    <li>
+                      <Link to={"/instructor-profile"}>Profile</Link>
+                    </li>
+                    <li>
+                      <Link to={"/dashboard/add-course"}>Dashboard</Link>
+                    </li>
+                  </>
+                )}
+                {!isAdmin && !isInstructor && (
+                  <li>
+                    <Link to={"/dashboard/selected-courses"}>Dashboard</Link>
+                  </li>
+                )}
                 <li>
                   <Link onClick={handleLogOut}>Logout</Link>
                 </li>
