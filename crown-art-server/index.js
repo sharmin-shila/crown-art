@@ -142,6 +142,13 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/instructors", async (req, res) => {
+      const result = await usersCollection
+        .find({ role: "instructor" })
+        .toArray();
+      res.send(result);
+    });
+
     app.get("/users/admin/:email", verifyJWT, async (req, res) => {
       const email = req.params.email;
 
@@ -171,6 +178,8 @@ async function run() {
       const result = { instructor: user?.role === "instructor" };
       res.send(result);
     });
+
+    
 
     app.post("/users", async (req, res) => {
       const user = req.body;
