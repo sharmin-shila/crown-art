@@ -3,31 +3,31 @@ import Container from "../Container/Container";
 
 const Footer = () => {
   return (
-    <div className="bg-[#283333cc]">
+    <div className="bg-[#B6BBC4]">
       <Container>
-        <footer className="px-5 pt-10 pb-4 rounded-md mt-12 text-base-content">
+        <footer className="px-5 pt-10 pb-4 rounded-md mt-12 text-[#161A30]">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:place-items-start">
             <div className="flex flex-col justify-center items-center md:mr-12">
-              <img src="/king.png" alt="" className="w-12" />
-              <p className="text-2xl font-bold text-white mb-2">Crown Art</p>
-              <h3 className="text-white text-center font-semibold">
+              <img src="/art.png" alt="" className="w-14 shadow-2xl" />
+              <p className="text-2xl font-bold mb-2">Crown Art</p>
+              <h3 className="text-center font-semibold">
                 The best online art school taught by the top artists in the
                 industry.
               </h3>
             </div>
-            <div className="text-white flex flex-col justify-center items-center">
-              <p className="mb-2 font-bold uppercase text-[#90c641e6]">
+            <div className="flex flex-col justify-center items-center">
+              <p className="mb-2 font-bold uppercase text-[#c67841d2]">
                 Contact
               </p>
               <a className="link link-hover">+8801500-121121</a>
               <a className="link link-hover">+8801500-121122</a>
               <a className="link link-hover">+8801500-121123</a>
             </div>
-            <div className="text-white flex flex-col justify-center items-center">
-              <p className="mb-2 font-bold uppercase text-[#90c641e6]">
+            <div className="flex flex-col justify-center items-center">
+              <p className="mb-2 font-bold uppercase text-[#c67841d2]">
                 Social
               </p>
-              <div className="grid grid-flow-col gap-4 text-[#90c641e6]">
+              <div className="grid grid-flow-col gap-4 text-[#31304D]">
                 <a href="https://twitter.com/" target="_blank" rel="noreferrer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,14 +67,14 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-            <div className="text-white flex flex-col justify-center items-center">
-              <p className="mb-2 font-bold uppercase text-[#90c641e6]">
+            <div className="flex flex-col justify-center items-center">
+              <p className="mb-2 font-bold uppercase text-[#c67841d2]">
                 Address
               </p>
-              <a className="link link-hover">New Market, Dhaka, Bangladesh</a>
+              <a className="link link-hover">Khilgaon, Dhaka, Bangladesh</a>
             </div>
           </div>
-          <p className="font-semibold text-gray-300 text-xs text-center mt-6">
+          <p className="font-semibold text-xs text-center mt-6">
             Copyright © {moment().format("YYYY")} - All right reserved by Crown
             Art
           </p>

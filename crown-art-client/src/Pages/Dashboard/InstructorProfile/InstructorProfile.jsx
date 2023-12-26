@@ -13,15 +13,12 @@ const InstructorProfile = () => {
   const { data: instructors = [], refetch } = useQuery({
     queryKey: ["instructors"],
     queryFn: async () => {
-      const res = axiosSecure.get(
-        `${import.meta.env.VITE_API_URL}/instructors`
-      );
-
+      const res = await axiosSecure.get("/instructors");
       return res.data;
     },
   });
 
-  const userInfo = instructors.find(
+  const userInfo = instructors?.find(
     (instructorInfo) => instructorInfo?.email === user?.email
   );
 
@@ -50,6 +47,7 @@ const InstructorProfile = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         instructorInfo={instructorInfo}
+        refetch={refetch}
       />
       <div className="mx-40 mt-5 p-5 border">
         <h2 className="text-xl font-bold mb-3">Your Profile</h2>

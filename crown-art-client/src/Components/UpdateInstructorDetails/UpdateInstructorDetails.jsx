@@ -3,7 +3,12 @@ import Modal from "../Modal/Modal";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const UpdateInstructorDetails = ({ isOpen, setIsOpen, instructorInfo }) => {
+const UpdateInstructorDetails = ({
+  isOpen,
+  setIsOpen,
+  instructorInfo,
+  refetch,
+}) => {
   const { name, email, image, bio, qualification, experience, teachingArea } =
     instructorInfo;
 
@@ -28,6 +33,7 @@ const UpdateInstructorDetails = ({ isOpen, setIsOpen, instructorInfo }) => {
         .then((res) => {
           console.log(res);
           if (res.data.modifiedCount > 0) {
+            refetch();
             toast.success("Profile updated successfully");
             setIsOpen(!isOpen);
           }
@@ -51,6 +57,7 @@ const UpdateInstructorDetails = ({ isOpen, setIsOpen, instructorInfo }) => {
             .put(`${import.meta.env.VITE_API_URL}/instructor/${email}`, data)
             .then((res) => {
               if (res.data.modifiedCount > 0) {
+                refetch();
                 toast.success("Profile updated successfully");
                 setIsOpen(!isOpen);
               }

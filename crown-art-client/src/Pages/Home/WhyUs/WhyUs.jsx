@@ -38,7 +38,7 @@ const WhyUs = () => {
               Your instructors will be top professionals in the art industry who
               are doing the dream jobs that you want.
             </p>
-            <Link to="/">
+            <Link to="/instructors">
               <h4 className="card-title text-base font-bold uppercase text-[#90c641e6]">
                 MEET THE INSTRUCTORS
               </h4>

@@ -8,7 +8,7 @@ const App = () => {
     <>
       <Navbar />
       <Container>
-        <div className="pt-20">
+        <div className="pt-20 min-h-screen">
           <Outlet />
         </div>
       </Container>

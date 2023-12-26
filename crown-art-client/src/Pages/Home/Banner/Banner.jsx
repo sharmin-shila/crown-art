@@ -20,7 +20,7 @@ const Banner = () => {
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 2500,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         loop={true}
@@ -35,13 +35,16 @@ const Banner = () => {
               alt=""
               className="w-full max-h-[70vh] object-cover rounded-2xl"
             />
-            <div className="bg-black bg-opacity-50 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
-              <h3 className="text-green-400 text-2xl md:text-4xl font-bold text-center mb-4">
-                Elevate your skills
-              </h3>
-              <p className="text-green-100 text-xs md:text-base text-center font-light md:font-semibold px-14">
-                Learn from industry leaders and reach your artistic goals faster
-              </p>
+            <div className="bg-black bg-opacity-70 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
+              <div className="md:max-w-xl mx-auto">
+                <h3 className="text-purple-500 text-xl md:text-3xl font-bold text-center mb-4">
+                  Whispers of the Canvas: Exploring the Soul of Art
+                </h3>
+                <p className="text-purple-200 text-xs md:text-base text-center font-light md:font-normal px-14">
+                  Dive into the silent language of brushstrokes, where canvases
+                  echo with the profound narratives of unspoken emotions
+                </p>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -53,13 +56,16 @@ const Banner = () => {
               alt=""
               className="w-full max-h-[70vh] object-cover rounded-2xl"
             />
-            <div className="bg-black bg-opacity-50 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
-              <h3 className="text-green-400 text-2xl md:text-4xl font-bold text-center mb-4">
-                Elevate your skills
-              </h3>
-              <p className="text-green-100 text-xs md:text-base text-center font-light md:font-semibold px-14">
-                Learn from industry leaders and reach your artistic goals faster
-              </p>
+            <div className="bg-black bg-opacity-70 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
+              <div className="md:max-w-xl mx-auto">
+                <h3 className="text-lime-500 text-xl md:text-3xl font-bold text-center mb-4">
+                  Abstract Realms: A Journey Beyond Boundaries
+                </h3>
+                <p className="text-lime-200 text-xs md:text-base text-center font-light md:font-normal px-14">
+                  Embark on a visual odyssey through abstract dimensions, where
+                  imagination knows no constraints and creativity dances freely
+                </p>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -71,13 +77,17 @@ const Banner = () => {
               alt=""
               className="w-full max-h-[70vh] object-cover rounded-2xl"
             />
-            <div className="bg-black bg-opacity-50 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
-              <h3 className="text-green-400 text-2xl md:text-4xl font-bold text-center mb-4">
-                Elevate your skills
-              </h3>
-              <p className="text-green-100 text-xs md:text-base text-center font-light md:font-semibold px-14">
-                Learn from industry leaders and reach your artistic goals faster
-              </p>
+            <div className="bg-black bg-opacity-70 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
+              <div className="md:max-w-xl mx-auto">
+                <h3 className="text-sky-500 text-xl md:text-3xl font-bold text-center mb-4">
+                  Ethereal Elegance: Artistry Beyond the Brush
+                </h3>
+                <p className="text-sky-200 text-xs md:text-base text-center font-light md:font-normal px-14">
+                  Witness the grace of artistic finesse as ethereal forms
+                  unfold, transcending the ordinary with a touch of timeless
+                  elegance
+                </p>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -89,17 +99,20 @@ const Banner = () => {
               alt=""
               className="w-full max-h-[70vh] object-cover rounded-2xl"
             />
-            <div className="bg-black bg-opacity-50 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
-              <h3 className="text-green-400 text-2xl md:text-4xl font-bold text-center mb-4">
-                Elevate your skills
-              </h3>
-              <p className="text-green-100 text-xs md:text-base text-center font-light md:font-semibold px-14">
-                Learn from industry leaders and reach your artistic goals faster
-              </p>
+            <div className="bg-black bg-opacity-70 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
+              <div className="md:max-w-xl mx-auto">
+                <h3 className="text-emerald-500 text-xl md:text-3xl font-bold text-center mb-4">
+                  Sculpting Dreams: Clay, Stone, and Beyond
+                </h3>
+                <p className="text-emerald-200 text-xs md:text-base text-center font-light md:font-normal px-14">
+                  Experience the alchemy of dreams taking shape, as skilled
+                  hands mold reality from the raw essence of clay and stone
+                </p>
+              </div>
             </div>
           </div>
         </SwiperSlide>
-        
+
         <SwiperSlide>
           <div className="relative">
             <img
@@ -107,13 +120,16 @@ const Banner = () => {
               alt=""
               className="w-full max-h-[70vh] object-cover rounded-2xl"
             />
-            <div className="bg-black bg-opacity-50 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
-              <h3 className="text-green-400 text-2xl md:text-4xl font-bold text-center mb-4">
-                Elevate your skills
-              </h3>
-              <p className="text-green-100 text-xs md:text-base text-center font-light md:font-semibold px-14">
-                Learn from industry leaders and reach your artistic goals faster
-              </p>
+            <div className="bg-black bg-opacity-70 rounded-2xl absolute inset-0 flex flex-col items-center justify-center">
+              <div className="md:max-w-xl mx-auto">
+                <h3 className="text-yellow-500 text-xl md:text-3xl font-bold text-center mb-4">
+                  Infinite Impressions: A Palette of Infinite Perspectives
+                </h3>
+                <p className="text-yellow-200 text-xs md:text-base text-center font-light md:font-normal px-14">
+                  Explore a kaleidoscope of perspectives, where each stroke adds
+                  a new layer to the canvas of infinite impressions
+                </p>
+              </div>
             </div>
           </div>
         </SwiperSlide>
