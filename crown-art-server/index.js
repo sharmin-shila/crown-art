@@ -179,8 +179,6 @@ async function run() {
       res.send(result);
     });
 
-    
-
     app.post("/users", async (req, res) => {
       const user = req.body;
 
