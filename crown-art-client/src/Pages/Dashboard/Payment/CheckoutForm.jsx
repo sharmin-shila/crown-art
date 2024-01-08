@@ -7,7 +7,8 @@ import toast from "react-hot-toast";
 import "./CheckoutForm.css";
 
 const CheckoutForm = ({ bookingInfo }) => {
-  const { _id, bookingItemId, name, price } = bookingInfo || {};
+  const { _id, bookingItemId, name, price, image, description } =
+    bookingInfo || {};
 
   const { user } = useAuth();
 
@@ -82,6 +83,8 @@ const CheckoutForm = ({ bookingInfo }) => {
         bookedItemId: _id,
         bookingItemId: bookingItemId,
         courseName: name,
+        image,
+        description,
       };
 
       axiosSecure.post("/payments", payment).then((res) => {

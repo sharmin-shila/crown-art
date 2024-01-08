@@ -19,6 +19,7 @@ import InstructorProfile from "../Pages/Dashboard/InstructorProfile/InstructorPr
 import SelectedCourses from "../Pages/Dashboard/SelectedCourses/SelectedCourses";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import EnrolledCourses from "../Pages/Dashboard/EnrolledCourses/EnrolledCourses";
+import EnrolledCourseDetails from "../Pages/Dashboard/EnrolledCourseDetails/EnrolledCourseDetails";
 
 const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
       {
         path: "enrolled-courses",
         element: <EnrolledCourses />,
+      },
+      {
+        path: "details/:id",
+        element: <EnrolledCourseDetails />,
       },
     ],
   },

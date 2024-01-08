@@ -2,6 +2,7 @@ import useAuth from "../../../Hooks/useAuth/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import EmptyInfo from "../../Shared/EmptyInfo/EmptyInfo";
+import { Link } from "react-router-dom";
 
 const EnrolledCourses = () => {
   const { user } = useAuth();
@@ -15,6 +16,7 @@ const EnrolledCourses = () => {
       return res.data;
     },
   });
+  console.log(courses);
 
   return (
     <>
@@ -26,9 +28,9 @@ const EnrolledCourses = () => {
                 <tr className="text-white capitalize">
                   <th></th>
                   <th>Name</th>
-                  <th>Course Fee</th>
                   <th>Date</th>
                   <th>Transaction Id</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -41,11 +43,17 @@ const EnrolledCourses = () => {
                         <div className="font-bold">{course?.courseName}</div>
                       </td>
 
-                      <td>${course?.price}</td>
-
                       <td>{new Date(course?.date).toDateString()}</td>
 
                       <td>{course?.transactionId}</td>
+
+                      <th>
+                        <Link to={`/dashboard/details/${course?._id}`}>
+                          <button className="btn bg-indigo-500 border-0 btn-sm">
+                            Details
+                          </button>
+                        </Link>
+                      </th>
                     </tr>
                   ))}
               </tbody>
