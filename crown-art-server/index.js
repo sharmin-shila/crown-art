@@ -484,6 +484,28 @@ async function run() {
 
     // <---payments collection apis--->
 
+    app.get("/enrolled-courses/:email", verifyJWT, async (req, res) => {
+      const email = req.params.email;
+      const result = await paymentsCollection
+        .aggregate([
+          {
+            $match: {
+              email: email,
+            },
+          },
+          { $sort: { date: -1 } },
+        ])
+        .toArray();
+      res.send(result);
+    });
+
+    app.get("/payment-details/:id", verifyJWT, async (req, res) => {
+      const result = await paymentsCollection.findOne({
+        _id: new ObjectId(req.params.id),
+      });
+      res.send(result);
+    });
+
     app.post("/payments", verifyJWT, async (req, res) => {
       const payment = req.body;
 
@@ -521,21 +543,6 @@ async function run() {
       const deleteResult = await bookingsCollection.deleteMany(query);
 
       res.send({ insertResult, updateCourseSeats, deleteResult });
-    });
-
-    app.get("/enrolled-courses/:email", verifyJWT, async (req, res) => {
-      const email = req.params.email;
-      const result = await paymentsCollection
-        .aggregate([
-          {
-            $match: {
-              email: email,
-            },
-          },
-          { $sort: { date: -1 } },
-        ])
-        .toArray();
-      res.send(result);
     });
   } finally {
   }
